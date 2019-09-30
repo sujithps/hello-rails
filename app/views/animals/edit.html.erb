@@ -1,0 +1,13 @@
+<% provide(:title, "Animal : #{@animal.try(:name)}") %>
+<h1>Editing Animal</h1>
+
+<span class="white-bg">
+<%= link_to @animal do %>
+  <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span> Show
+<% end %> |
+  <%= link_to animals_path do %>
+  <span class="glyphicon glyphicon-menu-left font-bold" aria-hidden="true"></span> Back
+<% end %>
+</span>
+
+<%= render 'form', animal: @animal %>

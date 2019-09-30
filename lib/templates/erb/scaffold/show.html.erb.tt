@@ -1,0 +1,64 @@
+<%% provide(:title, "<%= singular_table_name.titleize %> : #{@<%=singular_table_name %>.try(:name) }") %>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2><%%= @<%=singular_table_name %>.try(:name) %></h2>
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+  <span class="white-bg">
+   <%%= link_to edit_<%=singular_table_name %>_path(@<%=singular_table_name %>) do %>
+      <span class='glyphicon glyphicon-edit font-bold' aria-hidden='true'></span> Edit
+  <%% end %> |
+    <%%= link_to <%=singular_table_name %>s_path do %>
+      <span class='glyphicon glyphicon-menu-left font-bold' aria-hidden='true'></span> Back
+  <%% end %>
+    </span>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox product-detail">
+                <div class="ibox-content">
+                    <div class="row">
+                        <% attributes.reject(&:password_digest?).each do |attribute| -%>
+                        <div class="col-md-12">
+                            <hr>
+                            <div class="form-group">
+                                <label class="col-sm-6 control-label"><%= attribute.human_name %> : </label>
+                                <div class="col-sm-6">
+                                    <%%= @<%= singular_table_name %>.<%= attribute.name %> %>
+                                </div>
+                            </div>
+                        </div>
+                        <% end -%>
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <hr>
+                            <div>
+                                <h4>Actions</h4>
+
+                                <div class="btn-group">
+                                    <div class="btn-group">
+                                        <%%= link_to 'Edit', edit_<%= singular_table_name %>_path(@<%=
+                                        singular_table_name %>), class: "btn btn-default mr-4" %>
+                                        <%%= link_to 'Back', <%= index_helper %>_path, class: "btn btn-default" %>
+                                        <%%= link_to 'Delete', @<%= singular_table_name %>, method: :delete, data: {
+                                        confirm: 'Are you sure?' },
+                                        class: 'btn btn-danger btn-sm' %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

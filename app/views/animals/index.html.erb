@@ -1,0 +1,73 @@
+<% provide(:title, 'Animals') %>
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>Animals</h2>
+    </div>
+    <div class="ibox-title">
+        <div class="ibox-tools">
+            <p> <% if @animals.exists? %>
+                <%= link_to 'New Animal', new_animal_path, class: "btn
+                btn-primary btn-md" %>
+                <% end %>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <% if @animals.exists? %>
+    <div class="row">
+        <% @animals.each do |animal| %>
+        <div class="col-lg-4">
+            <div class="ibox product-detail">
+                <div class="ibox-content">
+
+                    <div class="row">
+                                                <div class="col-md-12">
+                            <hr>
+                            <div class="form-group"><label class="col-sm-6 control-label">Name : </label>
+                                <div class="col-sm-6">
+                                    <%= animal.name %>
+                                </div>
+                            </div>
+                            <hr>
+                        </div>
+                                            </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>
+                                <h4>Actions</h4>
+
+                                <div class="btn-group">
+                                    <div class="btn-group">
+                                        <%= link_to "View", animal, class: "btn btn-primary btn-md"
+                                        %>
+                                        <%= link_to "Edit", edit_animal_path(animal), class: "btn
+                                        btn-default" %>
+                                        <%= link_to 'Delete', animal, method: :delete, data: {
+                                        confirm: 'Are you sure?' },
+                                        class: 'btn btn-danger btn-sm' %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <% end %>
+
+        <% else %>
+        <div class="bg-white rounded shadow flex items-center justify-between p-8">
+            <div class="flex-1 text-center">
+                <p class="text-xl font-semibold mb-4">Create your first Animal</p>
+                <%= link_to 'New Animal', new_animal_path, class: "btn
+                btn-primary btn-md" %>
+            </div>
+        </div>
+        <% end %>
+    </div>
+</div>
