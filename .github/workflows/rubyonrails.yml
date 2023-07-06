@@ -1,0 +1,31 @@
+name: Dependabot auto merge
+on:
+  pull_request:
+    types: [ opened, reopened ]
+
+jobs:
+  merge-dependabot-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Ruby environment
+        uses: ruby/setup-ruby@v1
+        with:
+            ruby-version: '3.0' # Not needed with a .ruby-version file
+            bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install
+
+      - name: Merge Dependabot PR
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git fetch origin +refs/pull/$PR_NUMBER/merge:
+          git merge --no-ff FETCH_HEAD -m "Merge Dependabot PR"
+          git push origin HEAD:refs/heads/master
